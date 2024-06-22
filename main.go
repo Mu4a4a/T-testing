@@ -10,6 +10,7 @@ func main() {
 	file, err := os.Open("link.txt")
 	if err != nil {
 		fmt.Println("Файл пуст")
+		return
 	}
 	defer file.Close()
 	reader := bufio.NewScanner(file)
@@ -29,7 +30,7 @@ func spammyMasker(a string) string {
 	for i := 0; i <= len(inputSlice)-nlink; i++ {
 		if string(inputSlice[i:i+nlink]) == link {
 			j := i + nlink
-			for j < len(inputSlice) && (libray(inputSlice[j])) || inputSlice[j] == '_' || inputSlice[j] == '.' || inputSlice[j] == '~' || inputSlice[j] == '-' {
+			for j < len(inputSlice) && (libray(inputSlice[j]) || inputSlice[j] == '_' || inputSlice[j] == '.' || inputSlice[j] == '~' || inputSlice[j] == '-') {
 				outputSlice[j] = '*'
 				j++
 			}
