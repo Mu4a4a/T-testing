@@ -1,20 +1,7 @@
 package service
 
-import (
-	"fmt"
-	"os"
-)
-
 func NewService(prod Producer, pres Presenter) *Service {
 	return &Service{prod: prod, pres: pres}
-}
-
-type Producer interface {
-	produce() ([]byte, error)
-}
-
-type Presenter interface {
-	present([]byte) error
 }
 
 type Service struct {
@@ -22,44 +9,11 @@ type Service struct {
 	pres Presenter
 }
 
-type FileReader struct {
-	FilePath string
-}
-
-func (f FileReader) produce() ([]byte, error) {
-	fileData, err := os.ReadFile(f.FilePath)
-
-	if err != nil {
-		fmt.Println("НЕ УДАЛОСЬ ОТКРЫТЬ, ОШИБКА-", err)
-		os.Exit(1)
-	}
-	return fileData, err
-}
-
-type FileWriter struct {
-	FilePath string
-}
-
-func (f FileWriter) present(in []byte) error {
-
-	file, err := os.Create(f.FilePath)
-
-	if err != nil {
-		fmt.Println("ПРОИЗОШЛА ОШИБКА -", err)
-		os.Exit(1)
-	}
-
-	defer file.Close()
-
-	file.WriteString(spammyMasker(in))
-	return err
-}
-
 func (s Service) Run() {
 
-	in, _ := s.prod.produce()
+	in, _ := s.prod.Produce()
 
-	s.pres.present(in)
+	s.pres.Present(in)
 }
 
 func spammyMasker(input []byte) string {
@@ -70,7 +24,7 @@ func spammyMasker(input []byte) string {
 
 	for i := 0; i <= len(input)-nlink; i++ {
 		if string(input[i:i+nlink]) == link {
-			j := i + nlink
+			j := i + nlinkп
 			for j < len(input) && (libray(input[j]) || input[j] == '_' || input[j] == '.' || input[j] == '~' || input[j] == '-') {
 				outputSlice[j] = '*'
 				j++
