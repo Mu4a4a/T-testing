@@ -1,44 +1,32 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
+	"learnGO/service"
 	"os"
 )
 
 func main() {
-	file, err := os.Open("link.txt")
-	if err != nil {
-		fmt.Println("Файл пуст")
-	}
-	defer file.Close()
-	reader := bufio.NewScanner(file)
-	for reader.Scan() {
-		input := reader.Text()
-		fmt.Println(spammyMasker(input))
-	}
-}
 
-func spammyMasker(a string) string {
-	link := "http://"
-	nlink := len(link)
-	inputSlice := []byte(a)
-	outputSlice := make([]byte, len(inputSlice))
-	copy(outputSlice, inputSlice)
+	args := os.Args[1:]
 
-	for i := 0; i <= len(inputSlice)-nlink; i++ {
-		if string(inputSlice[i:i+nlink]) == link {
-			j := i + nlink
-			for j < len(inputSlice) && (libray(inputSlice[j])) || inputSlice[j] == '_' || inputSlice[j] == '.' || inputSlice[j] == '~' || inputSlice[j] == '-' {
-				outputSlice[j] = '*'
-				j++
-			}
-			i = j - 1
-		}
+	if len(args) < 1 {
+		fmt.Println("Не указан путь к файлу.")
+		return
 	}
-	return string(outputSlice)
-}
+	inputFilePath := args[0]
 
-func libray(a byte) bool {
-	return (a >= 'A' && a <= 'Z') || (a >= 'a' && a <= 'z') || (a >= '0' && a <= '9')
+	var outputFilePath string
+
+	if len(args) >= 2 {
+		outputFilePath = args[1]
+	} else {
+		outputFilePath = "output.txt"
+	}
+
+	prod := service.FileReader{FilePath: inputFilePath}
+	pres := service.FileWriter{FilePath: outputFilePath}
+	i := service.NewService(prod, pres)
+
+	i.Run()
 }
