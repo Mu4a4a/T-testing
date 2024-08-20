@@ -24,7 +24,7 @@ func spammyMasker(input []byte) string {
 
 	for i := 0; i <= len(input)-nlink; i++ {
 		if string(input[i:i+nlink]) == link {
-			j := i + nlinkп
+			j := i + nlink
 			for j < len(input) && (libray(input[j]) || input[j] == '_' || input[j] == '.' || input[j] == '~' || input[j] == '-') {
 				outputSlice[j] = '*'
 				j++
