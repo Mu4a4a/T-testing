@@ -1,12 +1,1 @@
 Here's my spammy page: http://******************** see you.
- http://***
-
-111
-1111222
-"Here's my spammy page: http://hehefouls.netHAHAHA see you.",
-			"Here's my spammy page: http://hehefouls.netHAHAHA see you. http://hehefouls.netHAHAHA see you.",
-			"Here's my spammy page: http://hehefo23452444uls.netHAHAHA see you.",
-			"http://hehefouls.netHAHAHA Here's my spammy page: see you.",
-			"Hello world! My program is the best!I'm Golang developer!",
-			"http:/Hello world! My program is the http:best!I'm Golang developer!",
-			"",
